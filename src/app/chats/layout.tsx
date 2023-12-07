@@ -1,7 +1,7 @@
 import ChatBar from "./_components/ChatBar";
 import SideBar from "@/components/SideBar";
 import { auth } from "@/lib/auth";
-import { publicEnv } from "@/lib/env/public";
+// import { publicEnv } from "@/lib/env/public";
 import { redirect } from "next/navigation";
 
 
@@ -13,7 +13,7 @@ async function ChatsLayout({ children }: Props) {
   const session = await auth();
   // console.log('layout', session);
   if (!session || !session?.user?.id) {
-    redirect(publicEnv.NEXT_PUBLIC_BASE_URL);
+    redirect('/');
   }
   return (
     // overflow-hidden for parent to hide scrollbar

@@ -33,7 +33,7 @@ type Message = {
 export default async function ChatBar() {
   const session = await auth();
   if (!session || !session?.user?.id) {
-    redirect(publicEnv.NEXT_PUBLIC_BASE_URL);
+    redirect('/');
   }
   const userId = session?.user?.id;
   
@@ -78,17 +78,17 @@ export default async function ChatBar() {
                         const res = await getUser(toUser);
                         if (!res && toUser != userId) {
                           console.log("user dne");
-                          redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/chats/userNotExisted`);
+                          redirect(`/chats/userNotExisted`);
                         }
                         if (!await getChatroomUser(userId, toUser)) {
                           console.log("existed");
-                          redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/chats/existed`);
+                          redirect(`/chats/existed`);
                         }
                         const newChatroomId = await createChatroom(userId);
                         console.log(newChatroomId);
                         await addChatroomUser(newChatroomId, toUser ?? userId);
                         revalidatePath("/chats");
-                        redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/chats/${newChatroomId}`);
+                        redirect(`/chats/${newChatroomId}`);
                       // } catch (error) {
                       //   console.log(error);
                       //   console.log("something went wrong!");
@@ -125,7 +125,7 @@ export default async function ChatBar() {
               const res = await findChatroom(searchValue, userId);
               console.log(res);
               if (!res) {
-                redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/chats/NewChatroom`)
+                redirect(`/chats/NewChatroom`)
                 // const res = prompt("是否新增聊天室?", "輸入yes/no");
                 // if (res === "yes") {
                   // try {
@@ -145,7 +145,7 @@ export default async function ChatBar() {
                   // }
                 // }
               } else {
-                redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/chats/${res}`);
+                redirect(`/chats/${res}`);
               }
             }}
           >
@@ -197,7 +197,7 @@ export default async function ChatBar() {
                     await deleteChatroom(chatroomId);
                     revalidatePath("/chats");
                     try {
-                      redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/chats`);
+                      redirect(`/chats`);
                     } catch (error) {
                       console.log(error);
                     }

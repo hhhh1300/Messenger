@@ -8,7 +8,7 @@ import { headers } from "next/headers";
 async function ChatsPage() {
   const session = await auth();
   if (!session || !session?.user?.id) {
-    redirect(publicEnv.NEXT_PUBLIC_BASE_URL);
+    redirect('/');
   }
   const userId = session?.user?.id;
   
@@ -26,7 +26,7 @@ async function ChatsPage() {
     const regPathname = /[.]*localhost:3000\/$/;
     if (regPathname.test(pathname)){
       // console.log(`${publicEnv.NEXT_PUBLIC_BASE_URL}/chats/${latestChatroom.chatroomId}`);
-      redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/chats/${latestChatroom.chatroomId}`)
+      redirect(`/chats/${latestChatroom.chatroomId}`)
     }
   }
   return (
