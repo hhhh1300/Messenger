@@ -6,7 +6,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { publicEnv } from "@/lib/env/public";
+// import { publicEnv } from "@/lib/env/public";
 import { signIn } from "next-auth/react";
 import { cn } from "@/lib/utils/shadcn";
 
@@ -25,7 +25,7 @@ export default function AuthForm() {
       username,
       password,
       image,
-      callbackUrl: `${publicEnv.NEXT_PUBLIC_BASE_URL}/chats`,
+      callbackUrl: `/chats`,
     });
   }
   
@@ -131,7 +131,7 @@ export default function AuthForm() {
               onClick={async () => {
                 // TODO: sign in with github
                 signIn("github", {
-                  callbackUrl: `${publicEnv.NEXT_PUBLIC_BASE_URL}/chats`,
+                  callbackUrl: `/chats`,
                 });
               }}
               className="flex w-full"
